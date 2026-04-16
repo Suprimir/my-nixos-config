@@ -14,6 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs =
@@ -22,23 +24,42 @@
       nixpkgs,
       home-manager,
       plasma-manager,
+      spicetify-nix,
       ...
     }@inputs:
+    let
+      mkHomeConfig = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.luis = import ./home.nix;
+        home-manager.extraSpecialArgs = {
+          inherit inputs;
+          inherit spicetify-nix;
+        };
+        home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+      };
+    in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.luis = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-          }
-        ];
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/desktop/configuration.nix
+            home-manager.nixosModules.home-manager
+            mkHomeConfig
+          ];
+        };
+
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/laptop/configuration.nix
+            home-manager.nixosModules.home-manager
+            mkHomeConfig
+          ];
+        };
       };
     };
 }

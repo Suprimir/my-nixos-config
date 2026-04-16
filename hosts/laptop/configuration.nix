@@ -7,7 +7,6 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -18,8 +17,11 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  networking.hostName = "laptop";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Mazatlan";
@@ -31,29 +33,47 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   hardware.cpu.amd.updateMicrocode = true;
 
-  zramSwap.enable = true;
-  zramSwap.priority = 10;
+  zramSwap = {
+    enable = true;
+    priority = 100;
+    memoryPercent = 60;
+  };
 
-  services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_MAX_PERF_ON_BAT = 60;
+
+      USB_AUTOSUSPEND = 1;
+    };
+  };
 
   services.xserver.xkb.layout = "us";
-
-  # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
   users.users.luis = {
     isNormalUser = true;
+    description = "Luis Mario";
     extraGroups = [
       "wheel"
       "networkmanager"
       "video"
+      "render"
+      "dialout"
     ];
-    packages = with pkgs; [
-      tree
-    ];
+    packages = with pkgs; [ tree ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -62,8 +82,10 @@
     git
     fastfetch
     firefox
+    brightnessctl
+    powertop
+    acpi
   ];
 
   system.stateVersion = "25.11";
-
 }
