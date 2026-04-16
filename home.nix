@@ -1,8 +1,6 @@
 { config, pkgs, imports, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
@@ -167,6 +165,7 @@
 
   programs.plasma = {
     enable = true;
+    overrideConfig = true;
     shortcuts = {
       ActivityManager.switch-to-activity-6d272e89-44d6-4575-bd1c-330f54b8d8db = [ ];
       "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";
