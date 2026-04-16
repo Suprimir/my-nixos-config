@@ -19,7 +19,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos";
-
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Mazatlan";
