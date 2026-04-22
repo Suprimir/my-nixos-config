@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -52,7 +53,37 @@
     git
     fastfetch
     firefox
+    ryubing
   ];
+
+  virtualisation.waydroid.enable = true;
+
+  environment.variables = {
+    QT_STYLE_OVERRIDE = "kvantum";
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
+  fonts.packages = [
+    inputs.apple-fonts.packages.${pkgs.system}.sf-pro
+    inputs.apple-fonts.packages.${pkgs.system}.sf-compact
+    inputs.apple-fonts.packages.${pkgs.system}.sf-mono
+    inputs.apple-fonts.packages.${pkgs.system}.sf-arabic
+    inputs.apple-fonts.packages.${pkgs.system}.ny
+  ];
+
+  fonts.fontconfig = {
+    defaultFonts = {
+      sansSerif = [
+        "SF Pro Display"
+        "SF Pro Text"
+      ];
+      serif = [ "New York" ];
+      monospace = [ "SF Mono" ];
+    };
+  };
 
   system.stateVersion = "25.11";
 }

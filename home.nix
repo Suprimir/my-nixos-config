@@ -32,9 +32,17 @@
     pkgs.arduino-ide
     pkgs.nerd-fonts._0xproto
     pkgs.obsidian
-    pkgs.vesktop
+    (pkgs.vesktop.override {
+      electron = pkgs.electron.override {
+        commandLineArgs = [
+          "--disable-gpu"
+          "--no-sandbox"
+        ];
+      };
+    })
     pkgs.flatpak
     pkgs.kicad
+    pkgs.rar
   ];
 
   programs.direnv.enable = true;

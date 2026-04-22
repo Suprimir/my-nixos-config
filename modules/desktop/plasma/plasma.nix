@@ -21,7 +21,7 @@
   home.packages = with pkgs; [
     kdePackages.qtstyleplugin-kvantum
     (pkgs.stdenv.mkDerivation {
-      name = "amy-kvantum-theme";
+      name = "amy-plasma-themes";
       src = pkgs.fetchFromGitHub {
         owner = "L4ki";
         repo = "Amy-Plasma-Themes";
@@ -30,36 +30,16 @@
       };
       installPhase = ''
         mkdir -p $out/share/Kvantum
-        cp -r "Amy Kvantum Themes/Amy-Dark-Kvantum" $out/share/Kvantum/
-      '';
-    })
-    (pkgs.stdenv.mkDerivation {
-      name = "layan-aurorae-theme";
-      src = pkgs.fetchFromGitHub {
-        owner = "vinceliuice";
-        repo = "Layan-kde";
-        rev = "master";
-        hash = "sha256-gy3sHVoCo4q7ihFuLvQEil7t4GdrbcfatOulAy2MZ9U=";
-      };
-      installPhase = ''
+        cp -r "Amy Kvantum Themes/"* $out/share/Kvantum/ || true
+
         mkdir -p $out/share/aurorae/themes
-        cp -r aurorae/themes/* $out/share/aurorae/themes/
-      '';
-    })
-    (pkgs.stdenv.mkDerivation {
-      name = "mcsur-kde-theme";
-      src = pkgs.fetchFromGitHub {
-        owner = "yeyushengfan258";
-        repo = "McSur-kde";
-        rev = "master";
-        hash = "sha256:1v1bzbkmhwpp0wd41kw71d4arqwf9iixkvqnv0ggglgg3pa0wm36";
-      };
-      installPhase = ''
+        cp -r "Amy Window Decorations/"* $out/share/aurorae/themes/ || true
+
         mkdir -p $out/share/plasma/desktoptheme
-        cp -r plasma/desktoptheme/* $out/share/plasma/desktoptheme/ || true
+        cp -r "Amy Plasma Themes/"* $out/share/plasma/desktoptheme/ || true
 
         mkdir -p $out/share/color-schemes
-        cp -r color-schemes/*.colors $out/share/color-schemes/ || true
+        cp -r "Amy Color Schemes/"* $out/share/color-schemes/ || true
       '';
     })
     pkgs.papirus-icon-theme
@@ -71,12 +51,12 @@
 
     workspace = {
       clickItemTo = "select";
-      theme = "McSur-dark";
-      colorScheme = "McSur-dark";
+      theme = "Amy-Plasma";
+      colorScheme = "AmyDarkColor";
       iconTheme = "Papirus-Dark";
       windowDecorations = {
         library = "org.kde.kwin.aurorae";
-        theme = "__aurorae__svg__Layan";
+        theme = "__aurorae__svg__Amy-Blur-Dark-Aurorae-6";
       };
       wallpaper = "/home/luis/Pictures/wallpapers/wallpaper.png";
     };

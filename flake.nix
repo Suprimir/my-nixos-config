@@ -21,6 +21,8 @@
     };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+
+    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
   };
 
   outputs =
@@ -31,6 +33,7 @@
       plasma-manager,
       spicetify-nix,
       nix-cachyos-kernel,
+      apple-fonts,
       ...
     }@inputs:
     let
