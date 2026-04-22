@@ -1,0 +1,99 @@
+{ pkgs, ... }:
+
+{
+  home.file = {
+    ".config/fastfetch/hanni.jpg" = {
+      source = ./fasthanni.jpg;
+    };
+  };
+
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      logo = {
+        source = "~/.config/fastfetch/hanni.jpg";
+        type = "kitty";
+        height = 14;
+        padding = {
+          top = 2;
+          left = 2;
+        };
+      };
+      display = {
+        separator = " ";
+      };
+      modules = [
+        "break"
+        "break"
+        {
+          type = "title";
+          keyWidth = 10;
+        }
+        "break"
+        {
+          type = "os";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "kernel";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "packages";
+          format = "{} (nix)";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "shell";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "terminal";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "wm";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "cursor";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "terminalfont";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "uptime";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "datetime";
+          format = "{1}-{3}-{11}";
+          key = " ";
+          keyColor = "34";
+        }
+        {
+          type = "media";
+          key = "󰝚 ";
+          keyColor = "34";
+        }
+        {
+          type = "player";
+          key = " ";
+          keyColor = "34";
+        }
+        "break"
+      ];
+    };
+  };
+}

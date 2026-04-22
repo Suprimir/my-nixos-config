@@ -1,0 +1,151 @@
+format = """
+[](fg:#bd93f9)\
+$os\
+$username\
+[](fg:#bd93f9 bg:#ff79c6)\
+$directory\
+[](fg:#ff79c6 bg:#50fa7b)\
+$git_branch\
+$git_status\
+[](fg:#50fa7b)\
+$fill\
+$c\
+$direnv\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$python\
+$rust\
+$scala\
+$docker_context\
+[](fg:#bd93f9)\
+$time\
+$cmd_duration
+󱞪 
+"""
+
+command_timeout = 1000
+
+[username]
+show_always = true
+style_user = "bg:#bd93f9 fg:#282a36"
+style_root = "bg:#bd93f9 fg:#ff5555 bold"
+format = '[$user ]($style)'
+disabled = false
+
+[os]
+style = "bg:#bd93f9 fg:#282a36"
+disabled = true 
+
+[directory]
+style = "bg:#ff79c6 fg:#282a36"
+format = "[  $path ]($style)"
+truncation_length = 10
+truncation_symbol = "…/"
+read_only = '🔒'
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:#50fa7b fg:#282a36"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#50fa7b fg:#282a36"
+format = '[$all_status$ahead_behind ]($style)'
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%R" 
+style = "fg:#282a36 bg:#bd93f9"
+format = '[ $time ]($style)'
+
+[cmd_duration]
+style = "fg:#f8f8f2 bg:#282a36"
+format = "[took $duration]($style) "
+
+[c]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[elixir]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[elm]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[gradle]
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[julia]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[nim]
+symbol = "󰆥 "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[python]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[scala]
+symbol = " "
+style = "bg:#8be9fd fg:#282a36"
+format = '[ $symbol ($version) ]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:#ffb86c fg:#282a36" # Naranja para Docker
+format = '[ $symbol $context ]($style) $path'
+
+[direnv]
+disabled = false

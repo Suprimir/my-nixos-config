@@ -15,7 +15,12 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
   };
 
   outputs =
@@ -25,6 +30,7 @@
       home-manager,
       plasma-manager,
       spicetify-nix,
+      nix-cachyos-kernel,
       ...
     }@inputs:
     let
@@ -48,6 +54,16 @@
             ./hosts/desktop/configuration.nix
             home-manager.nixosModules.home-manager
             mkHomeConfig
+
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [
+                  nix-cachyos-kernel.overlays.default
+                  nix-cachyos-kernel.overlays.pinned
+                ];
+              }
+            )
           ];
         };
 
@@ -58,6 +74,16 @@
             ./hosts/laptop/configuration.nix
             home-manager.nixosModules.home-manager
             mkHomeConfig
+
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [
+                  nix-cachyos-kernel.overlays.default
+                  nix-cachyos-kernel.overlays.pinned
+                ];
+              }
+            )
           ];
         };
       };
